@@ -57,11 +57,58 @@ Government Dashboard
 Maintenance Recommendation
 
 ## 📊 Dataset
+I’m packaging the verified dataset facts into a concise submission-ready summary you can paste into the hackathon form.
 
-The Computer Vision component of Sentinel AI uses the following dataset for infrastructure damage detection:
+## Dataset Details for Hackathon Submission
 
-**RDD2022 – Road Damage Dataset**
+Dataset Name:
+Merged Sentinel Dataset
 
-The dataset contains annotated road images covering different categories of road damage, including cracks and potholes.
+Dataset Source:
+Custom/merged infrastructure defect detection dataset containing bridge and structural defect images.
 
-🔗 **Dataset:** [RDD2022 Dataset](YOUR_DATASET_LINK_HERE)
+Dataset Type:
+Computer Vision object detection dataset for infrastructure damage detection.
+
+Number of Images:
+- Train: 42,454 images
+- Validation: 3,352 images
+- Test: 1,378 images
+
+Annotation Format:
+YOLO-style bounding box annotations in text files.
+
+Classes Present:
+- Crack-related defects
+- Corrosion
+- Concrete damage
+- Bridge crack
+- Other structural defect categories as defined in the dataset labels
+
+Dataset Structure:
+- Train images and labels
+- Validation images and labels
+- Test images and labels
+
+Purpose:
+Used for training and evaluating object detection models to identify infrastructure defects from images.
+
+Potential Use Case:
+Suitable for building an AI-powered system for:
+- defect detection
+- crack identification
+- infrastructure monitoring
+- automated inspection support
+
+🔗 **Dataset:** :  https://drive.google.com/drive/folders/14Z6DaVJEDst1coa-kA6V1tM0qEfTqoH8?usp=sharing
+
+About Model : 
+
+Use a pre-trained detector such as YOLOv8 or YOLO11
+Fine-tune it on our custom defect dataset
+Used the detections to generate features like:
+Defect count
+Defect size
+Confidence score
+For image detection: fine-tune YOLO
+For risk prediction: train XGBoost or Random Forest on metadata
