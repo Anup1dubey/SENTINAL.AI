@@ -22,8 +22,8 @@ export default function Footer() {
         </div>
 
         <p className="text-[11px] text-grayDim text-center md:text-right max-w-sm">
-          Demo build for a hackathon prototype. All data on this page is mocked — no backend, database, or real
-          AI model is connected.
+          Demo build for a hackathon prototype. Backed by a real API and database — defect detection currently
+          runs on a mocked inference service pending a trained model.
         </p>
       </div>
     </footer>

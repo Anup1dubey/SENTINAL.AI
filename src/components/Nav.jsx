@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, Home as HomeIcon } from "lucide-react";
+import { Menu, X, Home as HomeIcon, LogOut } from "lucide-react";
 import SignalBars from "./SignalBars";
+import { useAuth } from "../hooks/useAuth";
 
 const ROUTE_LINKS = [
   { to: "/", label: "Home", end: true },
@@ -15,6 +16,12 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const { user, isAuthenticated, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -60,12 +67,26 @@ export default function Nav() {
             <SignalBars size="sm" count={3} />
             Live Monitoring
           </span>
-          <button
-            onClick={() => navigate("/upload")}
-            className="px-4 py-2 rounded-full text-xs font-bold bg-green text-black hover:bg-greenBright transition-colors"
-          >
-            Try Live Demo
-          </button>
+          {isAuthenticated ? (
+            <>
+              <span className="text-xs text-gray">
+                {user.name} <span className="text-grayDim">· {user.role}</span>
+              </span>
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold bg-elevated text-white border border-line hover:bg-cardHover transition-colors"
+              >
+                <LogOut size={13} /> Logout
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={() => navigate("/login")}
+              className="px-4 py-2 rounded-full text-xs font-bold bg-green text-black hover:bg-greenBright transition-colors"
+            >
+              Sign In
+            </button>
+          )}
         </div>
 
         <button className="md:hidden text-white" onClick={() => setOpen(!open)}>
@@ -80,9 +101,20 @@ export default function Nav() {
               {l.label}
             </NavLink>
           ))}
-          <button onClick={() => navigate("/upload")} className="mt-2 px-4 py-2.5 rounded-full text-xs font-bold bg-green text-black">
-            Try Live Demo
-          </button>
+          {isAuthenticated ? (
+            <>
+              <span className="mt-2 text-xs text-gray">
+                {user.name} <span className="text-grayDim">· {user.role}</span>
+              </span>
+              <button onClick={handleLogout} className="mt-2 px-4 py-2.5 rounded-full text-xs font-bold bg-elevated text-white border border-line">
+                Logout
+              </button>
+            </>
+          ) : (
+            <button onClick={() => navigate("/login")} className="mt-2 px-4 py-2.5 rounded-full text-xs font-bold bg-green text-black">
+              Sign In
+            </button>
+          )}
         </div>
       )}
     </header>
